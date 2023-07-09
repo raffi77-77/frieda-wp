@@ -1,5 +1,5 @@
 <?php
-	
+
 	global $post;
 
 	$pageUrl = explode('?',rtrim($_SERVER['REQUEST_URI']));
@@ -15,7 +15,7 @@
 		array_pop($pageUrl);
 		$submitButtonId = 'evaluation-popup';
 	}
-	
+
 	$currentTemplate = get_page_template_slug($post);
 	if ($urlLevel == 5 && $currentTemplate && $currentTemplate != 'templates/content-tools-quiz.php') {
 		array_pop($pageUrl);
@@ -31,16 +31,16 @@
 ?>
 
 <div class="registerform-section toolscontent-wrap" id="<?= $post->ID; ?>">
-	<div class="container">
+	<div class="container container-xs">
 		<div  class="discovery-title">
 			<a class="backbtn" href="<?= $goBackUrl; ?>">
 				<span class="arrow-icon">
-					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/back-arrow.png"/>
+					<img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/ep_back.svg">
 				</span>
 				<span class="arrow-content">Zurück</span>
 			</a>
 			<div>
-			<h3><?= get_the_title(); ?></h3> 
+			<h3><?= get_the_title(); ?></h3>
 			</div>
 			<div></div>
 		</div>
@@ -66,11 +66,11 @@
 						</span>
 					</div> -->
 				</div>
-				
+
 				<?php include(get_template_directory().'/templates/content-tools/tool/'.$tool.'.php'); ?>
 				<div class="btn-inner" style="text-align: center;">
-				
-						
+
+
 					<?php
 						global $wp;
 						$courseAllPages = get_user_meta(get_current_user_id(), 'courseAllPages', true);
@@ -86,7 +86,7 @@
 					?>
 					<?php if ($isCompleted) { ?>
 						<!-- <button type="button" class="completed">Erledigt</button> -->
-					<?php } else { ?> 
+					<?php } else { ?>
 						<button type="button" class="submit-activity" id="<?= $submitButtonId; ?>" style="cursor: pointer;">Als fertig markieren</button>
 					<?php } ?>
 				</div>
@@ -95,7 +95,7 @@
 				<div id="show-res" style="display:none"></div>
 			</div>
 		</div>
-	</div> 
+	</div>
 </div>
 
 <?php if($isEvaluation) { ?>
@@ -120,7 +120,7 @@
 						<span class="content">
 							<span>überhaupt nicht hilfreich</span>
 							<span>sehr hilfreich</span>
-						</span> 
+						</span>
 					</div>
 					<div class="error-question-1" style="display: none;">Range required.</div>
 				</div>
@@ -136,7 +136,7 @@
 					<button type="submit" id="quiz-feedback-submit" meta-id="<?= $metaId;?>" style="cursor: pointer;">Abschicken</button>
 				</div>
 			</div>
-		</div>    
+		</div>
 	</div>
 <?php } else {
 	include(get_template_directory().'/templates/feedback-modal.php');

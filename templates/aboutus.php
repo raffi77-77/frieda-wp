@@ -6,7 +6,7 @@ Template Name: About Us
 get_header();
 ?>
 
-<div class="subbanner-section">
+<div class="subbanner-section subbanner-section--about">
 	<div class="container">
 		<h4><?= get_field('aboutus_banner_title'); ?></h4>
 		<p><?= get_field('aboutus_banner_description'); ?></p>
@@ -20,15 +20,15 @@ get_header();
 			$doctors = get_field('aboutus_doctors');
 			foreach ($doctors as $key => $doctor) { ?>
 				<div class="doctorprofession-block">
+                    <p><?= $doctor['about']; ?></p>
 					<span class="image-content">
 						<img src="<?= $doctor['image']; ?>" />
 					</span>
 					<h4><?= $doctor['name']; ?></h4>
 					<h5><?= $doctor['profession']; ?></h5>
-					<p><?= $doctor['about']; ?></p>
 				</div>
 			<?php } ?>
- 
+
 		</div>
 	</div>
 </div>
@@ -54,7 +54,7 @@ get_header();
 					</div>
 				</div>
 			<?php } ?>
- 
+
 		</div>
 	</div>
 </div>

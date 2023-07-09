@@ -40,17 +40,21 @@
 													$class .= ' correct-answer';
 												}
 											}
-											
-											
+
+
 											echo "<button data-val='".$option['is_answer']."' class='".$class."'>".$option['option']."</button>";
 										}
 									echo "</div>";
-								} 
+								}
 							?>
 						<?php } else { ?>
 							<textarea rows="10" style="width: 100%;" disabled="<?= $quizAnswer ? 'true' : 'false';?>"><?= $quizAnswer;?></textarea>
 						<?php } ?>
 					</div>
+                    <div class="symptoms-buttons">
+                        <a href="#" class="symptoms-btn symptoms-btn--light gilda">Back</a>
+                        <a href="#" class="symptoms-btn symptoms-btn--dark gilda">Next</a>
+                    </div>
 				<?php
 			}
 		}
