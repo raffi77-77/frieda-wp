@@ -7847,6 +7847,29 @@ a.next-course-btn {
     display: flex;
 }
 
+.step {
+    display: grid;
+    grid-template-rows: 0fr;
+    grid-template-columns: 1fr;
+    transition: grid-template-rows .3s linear .15s;
+}
+
+.step-in {
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity .15s;
+}
+
+.step--show {
+    grid-template-rows: 1fr;
+    transition: grid-template-rows .3s linear .3s;
+}
+
+.step--show .step-in {
+    opacity: 1;
+    transition: opacity .15s linear .45s;
+}
+
 @media all and (max-width: 1109px) {
     .welcome-media--tracker,
     .welcome-media--toolbox {
