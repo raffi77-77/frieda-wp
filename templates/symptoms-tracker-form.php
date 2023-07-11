@@ -48,7 +48,7 @@ get_header();
 			<div class="tracker-form-description gilda"><?= get_field('course_cpt_short_description') ?>Which side effect would you like to enter in your tracker?</div>
 		<?php } ?>
 
-		<div class="symptoms-wrap">
+		<div class="symptoms-wrap step step--show">
 			<h2>
 				<span class="quiz-numb">1. </span>
 				<span class="quiz-headtitle">Welche Begleiterscheinung möchtest du in dein Tracker eintragen?</span>
@@ -81,11 +81,11 @@ get_header();
 		</div>
 
         <div class="symptoms-buttons">
-            <a href="#" class="symptoms-btn symptoms-btn--light gilda">Back</a>
-            <a href="#" class="symptoms-btn symptoms-btn--dark gilda">Next</a>
+            <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
+            <a href="#" class="symptoms-btn symptoms-btn--dark gilda symptoms-step-next">Nächste</a>
         </div>
 
-		<div class="symptoms-wrap">
+		<div class="symptoms-wrap step">
 			<h2>
 				<span class="quiz-numb">2. </span>
 				<span class="quiz-headtitle">Liste zuerst die Situation auf, in der du die Begleiterscheinung hattest</span>
@@ -118,11 +118,11 @@ get_header();
 		</div>
 
         <div class="symptoms-buttons">
-            <a href="#" class="symptoms-btn symptoms-btn--light gilda">Back</a>
-            <a href="#" class="symptoms-btn symptoms-btn--dark gilda">Next</a>
+            <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
+            <a href="#" class="symptoms-btn symptoms-btn--dark gilda symptoms-step-next">Nächste</a>
         </div>
 
-		<div class="symptoms-wrap">
+		<div class="symptoms-wrap step">
 			<h2>
 				<span class="quiz-numb">3. </span>
 				<span class="quiz-headtitle">Wie intensiv war deine Begleiterscheinung?</span>
@@ -137,11 +137,11 @@ get_header();
 		</div>
 
         <div class="symptoms-buttons">
-            <a href="#" class="symptoms-btn symptoms-btn--light gilda">Back</a>
-            <a href="#" class="symptoms-btn symptoms-btn--dark gilda">Next</a>
+            <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
+            <a href="#" class="symptoms-btn symptoms-btn--dark gilda symptoms-step-next">Nächste</a>
         </div>
 
-		<div class="symptoms-wrap">
+		<div class="symptoms-wrap step">
 			<h2>
 				<span class="quiz-numb">4. </span>
 				<span class="quiz-headtitle">Wie stark hat dich die Begleiterscheinung belastet?</span>
@@ -156,8 +156,8 @@ get_header();
 		</div>
 
         <div class="symptoms-buttons">
-            <a href="#" class="symptoms-btn symptoms-btn--light gilda">Back</a>
-            <a href="#" class="symptoms-btn symptoms-btn--dark gilda">Next</a>
+            <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
+            <a href="#" class="symptoms-btn symptoms-btn--dark gilda symptoms-step-next">Nächste</a>
         </div>
 
 		<?php /* ?>
@@ -245,7 +245,7 @@ get_header();
 		</div> -->
 
 
-		<div class="symptoms-wrap">
+		<div class="symptoms-wrap step">
 			<h2>
 				<span class="quiz-numb">5. </span>
 				<span class="quiz-headtitle">Wie hast du dich gefühlt? Notiere deine Emotionen und körperlichen Empfindungen</span>

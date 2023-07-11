@@ -304,6 +304,16 @@ jQuery(document).ready(function () {
 		});
 	})
 
+	jQuery(document).on('click', ".symptoms-step-next", function (e) {
+		e.preventDefault();
+		moveSymptomsTrackerFormStep();
+	});
+
+	jQuery(document).on('click', ".symptoms-step-back", function (e) {
+		e.preventDefault();
+		moveSymptomsTrackerFormStep('back');
+	});
+
 	jQuery(document).on('click', "#submit-symptoms-tracker", function (e) {
 		e.preventDefault();
 
@@ -333,16 +343,22 @@ jQuery(document).ready(function () {
 
 
 		if (!question1) {
+			showSymptomsTrackerFormStep(0);
 			return showErrorMsg('error-question-1')
 		} else if (!question2) {
+			showSymptomsTrackerFormStep(1);
 			return showErrorMsg('error-question-3')
 		} else if (!question3) {
+			showSymptomsTrackerFormStep(2);
 			return showErrorMsg('error-question-3')
 		} else if (!question4) {
+			showSymptomsTrackerFormStep(3);
 			return showErrorMsg('error-question-4')
 		} else if (!question5) {
+			showSymptomsTrackerFormStep(4);
 			return showErrorMsg('error-question-5')
 		// } else if (!question6) {
+		//	showSymptomsTrackerFormStep(5);
 		// 	return showErrorMsg('error-question-6')
 		}
 
@@ -432,7 +448,46 @@ jQuery(document).ready(function () {
 
 });
 
+/**
+ * Show the step of the symptoms tracker from
+ *
+ * @param {number} step Show the step by index
+ */
+function showSymptomsTrackerFormStep(step) {
+	jQuery('.symptoms-wrap.step').each(function (i) {
+		const $el = jQuery(this);
+		if (parseInt(step) === i) {
+			$el.addClass('step--show');
+		} else {
+			$el.removeClass('step--show');
+		}
+	});
+}
 
+/**
+ * Move symptoms tracker form step
+ *
+ * @param {string} direction Next or back direction
+ */
+function moveSymptomsTrackerFormStep(direction = 'next') {
+	const $steps = jQuery('.symptoms-wrap.step');
+	let done = false;
+	$steps.each(function (i) {
+		if (done) {
+			// Process finished
+			return;
+		}
+		const $el = jQuery(this);
+		if ($el.hasClass('step--show')) {
+			const step = $steps[direction === 'next' ? i + 1 : (i - 1)];
+			if (step) {
+				$el.removeClass('step--show');
+				jQuery(step).addClass('step--show');
+			}
+			done = true;
+		}
+	});
+}
 
 function showErrorMsg(id) {
 	jQuery(`.${id}`).show()
