@@ -406,8 +406,11 @@ get_header();
                 <?php if ($isCompleted) { ?>
                     <button type="button" class="completed">Erledigt</button>
                 <?php } else { ?>
-                    <button type="button" id="submit-tracker" style="cursor: pointer;">Senden</button>
-                    <button type="button" class="submit-activity" style="cursor: pointer; display:none">Senden</button>
+                    <div class="symptoms-buttons">
+                        <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
+                        <button type="button" class="symptoms-btn symptoms-btn--dark gilda" id="submit-tracker" style="cursor: pointer;">Senden</button>
+                        <button type="button" class="submit-activity" style="cursor: pointer; display:none">Senden</button>
+                    </div>
                 <?php } ?>
             </div>
         </div>

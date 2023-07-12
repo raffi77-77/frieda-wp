@@ -7719,7 +7719,9 @@ a.next-course-btn {
     margin: 64px 0 140px 0;
 }
 
-.symptoms-btn {
+.symptoms-btn,
+.button-submit-wrap .symptoms-btn,
+.toolscontent-wrap .btn-inner .symptoms-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7739,22 +7741,30 @@ a.next-course-btn {
     appearance: none;
 }
 
-.symptoms-btn--light {
+.symptoms-btn--light,
+.button-submit-wrap .symptoms-btn--light,
+.toolscontent-wrap .btn-inner .symptoms-btn--light {
     border-color: #F5E5DC;
     background-color: transparent;
 }
 
-.symptoms-btn--light:hover {
+.symptoms-btn--light:hover,
+.button-submit-wrap .symptoms-btn--light:hover,
+.toolscontent-wrap .btn-inner .symptoms-btn--light:hover{
     border-color: #F5E5DC;
     background-color: #F5E5DC;
 }
 
-.symptoms-btn--dark {
+.symptoms-btn--dark,
+.button-submit-wrap .symptoms-btn--dark,
+.toolscontent-wrap .btn-inner .symptoms-btn--dark{
     border-color: #F5E5DC;
     background-color: #F5E5DC;
 }
 
-.symptoms-btn--dark:hover {
+.symptoms-btn--dark:hover,
+.button-submit-wrap .symptoms-btn--dark:hover,
+.toolscontent-wrap .btn-inner .symptoms-btn--dark:hover {
     color: #FFF;
     border-color: #39495E;
     background-color: #39495E;

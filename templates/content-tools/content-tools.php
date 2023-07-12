@@ -71,24 +71,27 @@
 				<div class="btn-inner <?= 'button-submit-' . $tool; ?>" style="display: none; text-align: center;">
 
 
-					<?php
-						global $wp;
-						$courseAllPages = get_user_meta(get_current_user_id(), 'courseAllPages', true);
-						$pageIndex = array_search(home_url($wp->request), $courseAllPages);
-						if ($pageIndex < count($courseAllPages)-1) {
-							?>
-								<a href="<?= $courseAllPages[$pageIndex+1]; ?>" class="next-course-btn" style="display: <?= $isCompleted ? 'inline-block' : 'none';?>;">
-								Weiter
-								</a>
-							<?php
-						}
+                    <div class="symptoms-buttons">
+                        <?php
+                        global $wp;
+                        $courseAllPages = get_user_meta(get_current_user_id(), 'courseAllPages', true);
+                        $pageIndex = array_search(home_url($wp->request), $courseAllPages);
+                        if ($pageIndex < count($courseAllPages)-1) {
+                            ?>
+                            <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
+                            <a href="<?= $courseAllPages[$pageIndex+1]; ?>" class="symptoms-btn symptoms-btn--dark gilda next-course-btn" style="display: <?= $isCompleted ? 'inline-block' : 'none';?>;">
+                                Weiter
+                            </a>
+                            <?php
+                        }
 
-					?>
-					<?php if ($isCompleted) { ?>
-						<!-- <button type="button" class="completed">Erledigt</button> -->
-					<?php } else { ?>
-						<button type="button" class="submit-activity" id="<?= $submitButtonId; ?>" style="cursor: pointer;">Als fertig markieren</button>
-					<?php } ?>
+                        ?>
+                        <?php if ($isCompleted) { ?>
+                            <!-- <button type="button" class="completed">Erledigt</button> -->
+                        <?php } else { ?>
+                            <button type="button" class="symptoms-btn symptoms-btn--dark gilda" class="submit-activity" id="<?= $submitButtonId; ?>" style="cursor: pointer;">Als fertig markieren</button>
+                        <?php } ?>
+                    </div>
 				</div>
 
 
