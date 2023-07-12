@@ -193,18 +193,25 @@ jQuery(document).ready(function () {
 		// let question8 = jQuery('.question-8 button.active').text()
 
 		if (!question1) {
+			showSymptomsTrackerFormStep(0);
 			return showErrorMsg('error-question-1')
 		} else if (!question3) {
+			showSymptomsTrackerFormStep(2);
 			return showErrorMsg('error-question-3')
 		} else if (!question4) {
+			showSymptomsTrackerFormStep(3);
 			return showErrorMsg('error-question-4')
 		} else if (!question5) {
+			showSymptomsTrackerFormStep(4);
 			return showErrorMsg('error-question-5')
 		} else if (!question6) {
+			showSymptomsTrackerFormStep(5);
 			return showErrorMsg('error-question-6')
 		} else if (!question7) {
+			showSymptomsTrackerFormStep(6);
 			return showErrorMsg('error-question-7')
 		// } else if (!question8) {
+		//	showSymptomsTrackerFormStep(8);
 		// 	return showErrorMsg('error-question-8')
 		}
 
@@ -266,7 +273,7 @@ jQuery(document).ready(function () {
 		if (!ranger) {
 			return showErrorMsg('error-question-1')
 		} else if (!comment) {
-			return showErrorMsg('error-question-3')
+			return showErrorMsg('error-question-2')
 		}
 
 
@@ -464,14 +471,25 @@ jQuery(document).ready(function () {
  * @param {number} step Show the step by index
  */
 function showSymptomsTrackerFormStep(step) {
-	jQuery('.symptoms-wrap.step').each(function (i) {
+	step = parseInt(step);
+	if (!Number.isInteger(step)) {
+		return;
+	}
+	const $steps = jQuery('.symptoms-wrap.step');
+	$steps.each(function (i) {
 		const $el = jQuery(this);
-		if (parseInt(step) === i) {
+		if (step === i) {
 			$el.addClass('step--show');
 		} else {
 			$el.removeClass('step--show');
 		}
 	});
+	if (step !== $steps.length - 1) {
+		// Hide submit button
+		jQuery('.button-submit-wrap').hide();
+		// Show step buttons
+		jQuery('.button-steps-wrap').show();
+	}
 }
 
 /**
@@ -511,9 +529,17 @@ function moveStep(stepsSelector = '.symptoms-wrap.step', submitContainerSelector
 	});
 }
 
+/**
+ * Show error message
+ *
+ * @param {string} id Error element class
+ */
 function showErrorMsg(id) {
-	jQuery(`.${id}`).show()
-	jQuery('html, body').animate({
-		scrollTop: jQuery(`.${id.replace('error-','')}`).offset().top-250
-	}, 2000);
+	jQuery(`.${id}`).show();
+	const offset = jQuery(`.${id.replace('error-', '')}`).offset();
+	if (offset && top in offset) {
+		jQuery('html, body').animate({
+			scrollTop: offset.top - 250,
+		}, 2000);
+	}
 }
