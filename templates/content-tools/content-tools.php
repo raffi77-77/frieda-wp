@@ -68,31 +68,27 @@
 				</div>
 
 				<?php include(get_template_directory().'/templates/content-tools/tool/'.$tool.'.php'); ?>
-				<div class="btn-inner <?= 'button-submit-' . $tool; ?>" style="display: none; text-align: center;">
-
-
+                <div class="btn-inner <?= 'button-submit-' . $tool; ?>"
+                     style="<?= $tool === 'quiz' ? 'display: none;' : ''; ?> text-align: center;">
                     <div class="symptoms-buttons">
-                        <?php
-                        global $wp;
-                        $courseAllPages = get_user_meta(get_current_user_id(), 'courseAllPages', true);
-                        $pageIndex = array_search(home_url($wp->request), $courseAllPages);
-                        if ($pageIndex < count($courseAllPages)-1) {
-                            ?>
-                            <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
-                            <a href="<?= $courseAllPages[$pageIndex+1]; ?>" class="symptoms-btn symptoms-btn--dark gilda next-course-btn" style="display: <?= $isCompleted ? 'inline-block' : 'none';?>;">
-                                Weiter
-                            </a>
-                            <?php
-                        }
-
-                        ?>
-                        <?php if ($isCompleted) { ?>
+						<?php global $wp;
+						$courseAllPages = get_user_meta( get_current_user_id(), 'courseAllPages', true );
+						$pageIndex      = array_search( home_url( $wp->request ), $courseAllPages );
+						if ( $pageIndex < count( $courseAllPages ) - 1 ) { ?>
+							<?= $tool === 'quiz' ? ' <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>' : ''; ?>
+                            <a href="<?= $courseAllPages[ $pageIndex + 1 ]; ?>"
+                               class="symptoms-btn symptoms-btn--dark gilda next-course-btn"
+                               style="display: <?= $isCompleted ? 'inline-block' : 'none'; ?>;">Weiter</a>
+						<?php } ?>
+						<?php if ( $isCompleted ) { ?>
                             <!-- <button type="button" class="completed">Erledigt</button> -->
-                        <?php } else { ?>
-                            <button type="button" class="symptoms-btn symptoms-btn--dark gilda" class="submit-activity" id="<?= $submitButtonId; ?>" style="cursor: pointer;">Als fertig markieren</button>
-                        <?php } ?>
+						<?php } else { ?>
+                            <button type="button" class="symptoms-btn symptoms-btn--dark gilda" class="submit-activity"
+                                    id="<?= $submitButtonId; ?>" style="cursor: pointer;">Als fertig markieren
+                            </button>
+						<?php } ?>
                     </div>
-				</div>
+                </div>
 
 
 				<div id="show-res" style="display:none"></div>

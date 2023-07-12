@@ -403,15 +403,17 @@ get_header();
             </div>
 
             <div class="button-submit-wrap" style="display: none;">
-                <?php if ($isCompleted) { ?>
-                    <button type="button" class="completed">Erledigt</button>
-                <?php } else { ?>
+		        <?php if ( $isCompleted ) { ?>
+                    <div class="symptoms-buttons">
+                        <button type="button" class="symptoms-btn symptoms-btn--dark gilda completed">Erledigt</button>
+                    </div>
+		        <?php } else { ?>
                     <div class="symptoms-buttons">
                         <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
                         <button type="button" class="symptoms-btn symptoms-btn--dark gilda" id="submit-tracker" style="cursor: pointer;">Senden</button>
                         <button type="button" class="submit-activity" style="cursor: pointer; display:none">Senden</button>
                     </div>
-                <?php } ?>
+		        <?php } ?>
             </div>
         </div>
         <?php include(get_template_directory() . '/templates/feedback-modal.php'); ?>

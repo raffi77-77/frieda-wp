@@ -324,7 +324,7 @@ jQuery(document).ready(function () {
 	jQuery(document).on('click', ".symptoms-step-back", function (e) {
 		e.preventDefault();
 		let stepsSelector = '.symptoms-wrap.step', submitContainerSelector = '.button-submit-wrap';
-		if (jQuery(this).is('.quizcontent-wrap .symptoms-step-next')) {
+		if (jQuery(this).is('.quizcontent-wrap .symptoms-step-back') || jQuery(this).is('.button-submit-quiz .symptoms-step-back')) {
 			stepsSelector = '.quizcontent-wrap .maincontent-wrap.step';
 			submitContainerSelector = '.button-submit-quiz';
 		}
