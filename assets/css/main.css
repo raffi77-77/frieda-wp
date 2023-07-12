@@ -2779,7 +2779,7 @@ span.coursetime-innercontent {
     background: #FFF6F1;
     padding: 30px;
     max-width: 722px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto !important;
     border-radius: 10px;
 }
 
@@ -3553,7 +3553,7 @@ span.coursetime-innercontent {
 
 .button-submit-wrap {
     max-width: 722px;
-    margin: 0 auto 20px auto;
+    margin: 64px auto 140px;
     text-align: center;
 }
 
@@ -3693,7 +3693,7 @@ span.coursetime-innercontent {
     background: #FFF6F1;
     padding: 30px;
     max-width: 722px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto !important;
     border-radius: 10px;
 }
 
@@ -7609,7 +7609,7 @@ a.next-course-btn {
 
 .quizcontent-wrap .maincontent-wrap {
     border-radius: unset;
-    margin: 0 auto 20px auto;
+    margin: 0 auto;
     background: unset;
     padding: unset;
     max-width: 460px;

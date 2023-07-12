@@ -68,7 +68,7 @@
 				</div>
 
 				<?php include(get_template_directory().'/templates/content-tools/tool/'.$tool.'.php'); ?>
-				<div class="btn-inner" style="text-align: center;">
+				<div class="btn-inner <?= 'button-submit-' . $tool; ?>" style="display: none; text-align: center;">
 
 
 					<?php

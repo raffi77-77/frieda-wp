@@ -392,7 +392,7 @@ get_header();
                 <div class="error-question error-question-8" style="display: none;">Option erforderlich.</div>
             </div> -->
 
-            <div class="symptoms-buttons">
+            <div class="symptoms-buttons button-steps-wrap">
                 <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
                 <a href="#" class="symptoms-btn symptoms-btn--dark gilda symptoms-step-next">Nächste</a>
             </div>
@@ -402,7 +402,7 @@ get_header();
                 <a class="toolbox-thought" href="<?= THOUGHT_TRACKER_PAGE_LINK; ?>">Zurück zur Übersicht</a>
             </div>
 
-            <div class="button-submit-wrap">
+            <div class="button-submit-wrap" style="display: none;">
                 <?php if ($isCompleted) { ?>
                     <button type="button" class="completed">Erledigt</button>
                 <?php } else { ?>

@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
 	}
 
 	jQuery(document).on('click', ".quiz-options button, .symptoms-block button", function (e) {
-		let inputClass = jQuery(this).closest('div').data('id') 
+		let inputClass = jQuery(this).closest('div').data('id')
 		jQuery(`.${inputClass}-section`).show()
 
 		let isMarked = jQuery(this).closest('div').hasClass('marked')
@@ -306,12 +306,22 @@ jQuery(document).ready(function () {
 
 	jQuery(document).on('click', ".symptoms-step-next", function (e) {
 		e.preventDefault();
-		moveSymptomsTrackerFormStep();
+		let stepsSelector = '.symptoms-wrap.step', submitContainerSelector = '.button-submit-wrap';
+		if (jQuery(this).is('.quizcontent-wrap .symptoms-step-next')) {
+			stepsSelector = '.quizcontent-wrap .maincontent-wrap.step';
+			submitContainerSelector = '.button-submit-quiz';
+		}
+		moveStep(stepsSelector, submitContainerSelector);
 	});
 
 	jQuery(document).on('click', ".symptoms-step-back", function (e) {
 		e.preventDefault();
-		moveSymptomsTrackerFormStep('back');
+		let stepsSelector = '.symptoms-wrap.step', submitContainerSelector = '.button-submit-wrap';
+		if (jQuery(this).is('.quizcontent-wrap .symptoms-step-next')) {
+			stepsSelector = '.quizcontent-wrap .maincontent-wrap.step';
+			submitContainerSelector = '.button-submit-quiz';
+		}
+		moveStep(stepsSelector, submitContainerSelector, 'back');
 	});
 
 	jQuery(document).on('click', "#submit-symptoms-tracker", function (e) {
@@ -469,8 +479,8 @@ function showSymptomsTrackerFormStep(step) {
  *
  * @param {string} direction Next or back direction
  */
-function moveSymptomsTrackerFormStep(direction = 'next') {
-	const $steps = jQuery('.symptoms-wrap.step');
+function moveStep(stepsSelector = '.symptoms-wrap.step', submitContainerSelector = '.button-submit-wrap', direction = 'next') {
+	const $steps = jQuery(stepsSelector);
 	let done = false;
 	$steps.each(function (i) {
 		if (done) {
@@ -479,10 +489,22 @@ function moveSymptomsTrackerFormStep(direction = 'next') {
 		}
 		const $el = jQuery(this);
 		if ($el.hasClass('step--show')) {
-			const step = $steps[direction === 'next' ? i + 1 : (i - 1)];
+			const stepIndex = direction === 'next' ? i + 1 : (i - 1), step = $steps[stepIndex];
 			if (step) {
 				$el.removeClass('step--show');
 				jQuery(step).addClass('step--show');
+				// Check buttons sections
+				if ($steps.length - 1 === stepIndex) {
+					// Hide back-next buttons
+					jQuery('.button-steps-wrap').hide();
+					// Show submit button
+					jQuery(submitContainerSelector).show();
+				} else {
+					// Show back-next buttons
+					jQuery('.button-steps-wrap').show();
+					// Hide submit button
+					jQuery(submitContainerSelector).hide();
+				}
 			}
 			done = true;
 		}
