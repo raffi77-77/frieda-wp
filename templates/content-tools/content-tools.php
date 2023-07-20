@@ -83,7 +83,7 @@
 						<?php if ( $isCompleted ) { ?>
                             <!-- <button type="button" class="completed">Erledigt</button> -->
 						<?php } else { ?>
-                            <button type="button" class="symptoms-btn symptoms-btn--dark gilda" class="submit-activity"
+                            <button type="button" class="symptoms-btn symptoms-btn--dark gilda submit-activity"
                                     id="<?= $submitButtonId; ?>" style="cursor: pointer;">Als fertig markieren
                             </button>
 						<?php } ?>
