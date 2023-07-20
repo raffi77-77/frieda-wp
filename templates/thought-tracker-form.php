@@ -257,7 +257,7 @@ get_header();
 
                     <div class="error-question error-question-3" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-3-section" style="display: none;">
-                        <h5>Notizen</h5>
+                        <h5>Sonstige</h5>
                         <input type="text" class="question-3-input" placeholder="Trage hier deine eigenen Angaben ein"
                                name="name">
                     </div>
@@ -347,7 +347,7 @@ get_header();
                     </div>
                     <div class="error-question error-question-5" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-5-section" style="display: none;">
-                        <h5>Notizen</h5>
+                        <h5>Sonstige</h5>
                         <input type="text" class="question-5-input" placeholder="Trage hier deine eigenen Angaben ein"
                                name="name">
                     </div>

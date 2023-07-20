@@ -45,16 +45,14 @@ get_header();
                 <div></div>
             </div>
             <?php if (is_page_template('templates/symptoms-tracker-form.php')) { ?>
-                <div class="tracker-form-description gilda"><?= get_field('course_cpt_short_description') ?>Which side
-                    effect would you like to enter in your tracker?
-                </div>
+                <div class="tracker-form-description gilda"><?= get_field('course_cpt_short_description') ?></div>
             <?php } ?>
 
             <div class="symptoms-wrap step step--show">
                 <div class="step-in">
                     <h2>
                         <span class="quiz-numb">1. </span>
-                        <span class="quiz-headtitle">Welche Begleiterscheinung möchtest du in dein Tracker eintragen?</span>
+                        <span class="quiz-headtitle">Welche Begleiterscheinung möchtest du in deinen Tracker eintragen?</span>
                     </h2>
                     <div class="symptoms-block question-1" data-id="question-1">
                         <?php
@@ -78,7 +76,7 @@ get_header();
                     </div>
                     <div class="error-question error-question-1" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-1-section" style="display: none;">
-                        <h5>Notizen</h5>
+                        <h5>Sonstige</h5>
                         <input type="text" class="question-1-input" placeholder="Trage hier deine eigenen Angaben ein"
                                name="name">
                     </div>
@@ -113,7 +111,7 @@ get_header();
                     </div>
                     <div class="error-question error-question-2" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-2-section" style="display: none;">
-                        <h5>Notizen</h5>
+                        <h5>Sonstige</h5>
                         <input type="text" class="question-2-input" placeholder="Trage hier deine eigenen Angaben ein"
                                name="name">
                     </div>
