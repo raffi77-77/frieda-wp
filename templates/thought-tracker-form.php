@@ -7,24 +7,24 @@ Template Post Type: frieda_course,page
 redirectUnLoggedUser();
 global $post;
 
-$pageUrl = explode('?', rtrim($_SERVER['REQUEST_URI']));
-$pageUrl = explode('/', rtrim($pageUrl[0]));
-$pageUrl = array_filter($pageUrl);
-$urlLevel = count($pageUrl);
+$pageUrl  = explode( '?', rtrim( $_SERVER['REQUEST_URI'] ) );
+$pageUrl  = explode( '/', rtrim( $pageUrl[0] ) );
+$pageUrl  = array_filter( $pageUrl );
+$urlLevel = count( $pageUrl );
 
-array_pop($pageUrl);
-$goBackUrl = site_url(implode('/', $pageUrl) . '?parent=' . $post->post_parent);
+array_pop( $pageUrl );
+$goBackUrl = site_url( implode( '/', $pageUrl ) . '?parent=' . $post->post_parent );
 
-$postId = "";
+$postId      = "";
 $isCompleted = false;
-if ($post->post_type == 'frieda_course') {
-    $postId = $post->ID;
-    $metaId = get_user_meta(get_current_user_id(), 'userCourseMetaIds' . $post->ID, true);
-    $isCompleted = updateGroupUserMeta($metaId, 'completedDate');
-    $israckerFrom = updateGroupUserMeta($metaId, 'isTrackerFrom');
-    ?>
+if ( $post->post_type == 'frieda_course' ) {
+	$postId       = $post->ID;
+	$metaId       = get_user_meta( get_current_user_id(), 'userCourseMetaIds' . $post->ID, true );
+	$isCompleted  = updateGroupUserMeta( $metaId, 'completedDate' );
+	$israckerFrom = updateGroupUserMeta( $metaId, 'isTrackerFrom' );
+	?>
     <script>window.isTrackerFrom = true</script>
-    <?php
+	<?php
 }
 
 get_header();
@@ -34,7 +34,7 @@ get_header();
             <div class="discovery-title">
                 <a class="backbtn" href="<?= $goBackUrl; ?>">
 				<span class="arrow-icon">
-					<img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/ep_back.svg">
+					<img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/ep_back.svg" alt="ep-back">
 				</span>
                     <span class="arrow-content">
 					Zurück
@@ -44,9 +44,9 @@ get_header();
                 <div></div>
             </div>
 
-            <?php if (is_page_template('templates/thought-tracker-form.php')) { ?>
-                <div class="tracker-form-description"><?= get_field('course_cpt_short_description') ?></div>
-            <?php } ?>
+			<?php if ( is_page_template( 'templates/thought-tracker-form.php' ) ) { ?>
+                <div class="tracker-form-description"><?= get_field( 'course_cpt_short_description' ) ?></div>
+			<?php } ?>
 
             <div class="symptoms-wrap step step--show">
                 <div class="step-in">
@@ -55,30 +55,30 @@ get_header();
                         <span class="quiz-headtitle">Welche Begleiterscheinung möchtest du in dein Gedanken-Tagebuch eintragen?</span>
                     </h2>
                     <div class="symptoms-block question-1" data-id="question-1">
-                        <?php
-                        $question5 = [
-                            "Hitzewallungen und Schweißausbrüche",
-                            "Schlafstörungen",
-                            "Stimmungsschwankungen",
-                            "Erschöpfung",
-                            "Libidoverlust",
-                            "Scheidentrockenheit",
-                            "Gewichtsveränderungen",
-                            "Herzrasen und Blutdruckschwankungen",
-                            "Ängste",
-                            "Schmerzen (Kopf, Glieder, Rücken etc.)",
-                        ];
+						<?php
+						$question5 = [
+							"Hitzewallungen und Schweißausbrüche",
+							"Schlafstörungen",
+							"Stimmungsschwankungen",
+							"Erschöpfung",
+							"Libidoverlust",
+							"Scheidentrockenheit",
+							"Gewichtsveränderungen",
+							"Herzrasen und Blutdruckschwankungen",
+							"Ängste",
+							"Schmerzen (Kopf, Glieder, Rücken etc.)",
+						];
 
-                        foreach ($question5 as $question) {
-                            echo '<button>' . $question . '</button>';
-                        }
-                        ?>
+						foreach ( $question5 as $question ) {
+							echo '<button>' . $question . '</button>';
+						}
+						?>
                     </div>
                     <div class="error-question error-question-1" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-1-section" style="display: none;">
                         <h5>Sonstige</h5>
                         <input type="text" class="question-1-input" placeholder="Trage hier deine eigenen Angaben ein"
-                               name="name">
+                               name="name"/>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@ get_header();
                         </div>
                         <span class="range-wrap">
 					<input type="range" class="question-2" id="vol" name="vol" min="0" max="10"
-                           labels="0, 2, 4, 6, 8, 10">
+                           labels="0, 2, 4, 6, 8, 10"/>
 				</span>
                     </div>
                 </div>
@@ -114,52 +114,52 @@ get_header();
                     </ul>
                     <div class="symptoms-block twoblocks multiple tab1 question-3" data-id="question-3"
                          style="display: none;">
-                        <?php
-                        $tabs1 = [
-                            [
-                                'icon' => 'scared (2) 1',
-                                'title' => 'Ängstlich'
-                            ],
-                            [
-                                'icon' => 'disappointed 1',
-                                'title' => 'Enttäuscht'
-                            ],
-                            [
-                                'icon' => 'heart 2',
-                                'title' => 'Leer'
-                            ],
-                            [
-                                'icon' => 'expressionless 1',
-                                'title' => 'Frustriert'
-                            ],
-                            [
-                                'icon' => 'upset 1',
-                                'title' => 'Schuldig'
-                            ],
-                            [
-                                'icon' => 'mood 1',
-                                'title' => 'Hoffnungslos'
-                            ],
-                            [
-                                'icon' => 'lonely 1',
-                                'title' => 'Einsam'
-                            ],
-                            [
-                                'icon' => 'scared (3) 1',
-                                'title' => 'Gestresst'
-                            ],
-                            [
-                                'icon' => 'weary 1',
-                                'title' => 'Müde'
-                            ],
-                            [
-                                'icon' => 'scared 1',
-                                'title' => 'Besorgt'
-                            ],
-                        ];
+						<?php
+						$tabs1 = [
+							[
+								'icon'  => 'scared (2) 1',
+								'title' => 'Ängstlich'
+							],
+							[
+								'icon'  => 'disappointed 1',
+								'title' => 'Enttäuscht'
+							],
+							[
+								'icon'  => 'heart 2',
+								'title' => 'Leer'
+							],
+							[
+								'icon'  => 'expressionless 1',
+								'title' => 'Frustriert'
+							],
+							[
+								'icon'  => 'upset 1',
+								'title' => 'Schuldig'
+							],
+							[
+								'icon'  => 'mood 1',
+								'title' => 'Hoffnungslos'
+							],
+							[
+								'icon'  => 'lonely 1',
+								'title' => 'Einsam'
+							],
+							[
+								'icon'  => 'scared (3) 1',
+								'title' => 'Gestresst'
+							],
+							[
+								'icon'  => 'weary 1',
+								'title' => 'Müde'
+							],
+							[
+								'icon'  => 'scared 1',
+								'title' => 'Besorgt'
+							],
+						];
 
-                        foreach ($tabs1 as $tab1) {
-                            ?>
+						foreach ( $tabs1 as $tab1 ) {
+							?>
                             <button class="checkbox-wrap">
                                 <div class="custom-checkbox">
                                     <input type="checkbox" class="checkbox"/>
@@ -172,64 +172,63 @@ get_header();
                                     </svg>
                                 </div>
                                 <span class="contenticon-wrap">
-									<!--
-                                    <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $tab1['icon']; ?>.svg" />
-                                    -->
+                                    <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $tab1['icon']; ?>.svg"
+                                         alt="icon"/>
 									<span class="content"><?= $tab1['title']; ?></span>
 								</span>
                             </button>
-                            <?php
-                        }
-                        ?>
+							<?php
+						}
+						?>
                     </div>
 
                     <div class="symptoms-block twoblocks multiple tab2 question-3" data-id="question-3">
-                        <?php
-                        $tabs2 = [
-                            [
-                                'icon' => 'ruhg',
-                                'title' => 'Ruhig'
-                            ],
-                            [
-                                'icon' => 'entspannt',
-                                'title' => 'Entspannt'
-                            ],
-                            [
-                                'icon' => 'aufgeregt',
-                                'title' => 'Aufgeregt'
-                            ],
-                            [
-                                'icon' => 'dankbar',
-                                'title' => 'Dankbar'
-                            ],
-                            [
-                                'icon' => 'glücklich',
-                                'title' => 'Glücklich'
-                            ],
-                            [
-                                'icon' => 'hoffnungsvoll',
-                                'title' => 'Hoffnungsvoll'
-                            ],
-                            [
-                                'icon' => 'geliebt',
-                                'title' => 'Geliebt'
-                            ],
-                            [
-                                'icon' => 'motiviert',
-                                'title' => 'Motiviert'
-                            ],
-                            [
-                                'icon' => 'stolz',
-                                'title' => 'Stolz'
-                            ],
-                            [
-                                'icon' => 'erleichtert',
-                                'title' => 'Erleichtert'
-                            ],
-                        ];
+						<?php
+						$tabs2 = [
+							[
+								'icon'  => 'ruhg',
+								'title' => 'Ruhig'
+							],
+							[
+								'icon'  => 'entspannt',
+								'title' => 'Entspannt'
+							],
+							[
+								'icon'  => 'aufgeregt',
+								'title' => 'Aufgeregt'
+							],
+							[
+								'icon'  => 'dankbar',
+								'title' => 'Dankbar'
+							],
+							[
+								'icon'  => 'glücklich',
+								'title' => 'Glücklich'
+							],
+							[
+								'icon'  => 'hoffnungsvoll',
+								'title' => 'Hoffnungsvoll'
+							],
+							[
+								'icon'  => 'geliebt',
+								'title' => 'Geliebt'
+							],
+							[
+								'icon'  => 'motiviert',
+								'title' => 'Motiviert'
+							],
+							[
+								'icon'  => 'stolz',
+								'title' => 'Stolz'
+							],
+							[
+								'icon'  => 'erleichtert',
+								'title' => 'Erleichtert'
+							],
+						];
 
-                        foreach ($tabs2 as $tab2) {
-                            ?>
+						foreach ( $tabs2 as $tab2 ) {
+							?>
                             <button class="checkbox-wrap">
                                 <div class="custom-checkbox">
                                     <input type="checkbox" class="checkbox"/>
@@ -242,24 +241,23 @@ get_header();
                                     </svg>
                                 </div>
                                 <span class="contenticon-wrap">
-                                    <!--
-									<?php if ($tab2['icon']) { ?>
-										<img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $tab2['icon']; ?>.svg" />
+									<?php if ( $tab2['icon'] ) { ?>
+                                        <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $tab2['icon']; ?>.svg"
+                                             alt="icon"/>
 									<?php } ?>
-									-->
 									<span class="content"><?= $tab2['title']; ?></span>
 								</span>
                             </button>
-                            <?php
-                        }
-                        ?>
+							<?php
+						}
+						?>
                     </div>
 
                     <div class="error-question error-question-3" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-3-section" style="display: none;">
                         <h5>Sonstige</h5>
                         <input type="text" class="question-3-input" placeholder="Trage hier deine eigenen Angaben ein"
-                               name="name">
+                               name="name"/>
                     </div>
                 </div>
             </div>
@@ -285,44 +283,44 @@ get_header();
                     </h2>
                     <div class="symptoms-block question-5 multiple" data-id="question-5">
 
-                        <?php
-                        $question5 = [
-                            [
-                                'icon' => 'home',
-                                'title' => 'Alles-Oder-Nichts-Denken '
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Wahrscheinlichkeits-überschätzung'
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Emotionale Beweisführung'
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Katastrophisieren'
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Labelling'
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Sollte-Tyranneien'
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Gedankenlesen'
-                            ],
-                            [
-                                'icon' => 'home',
-                                'title' => 'Selektive Wahrnehmung (des Negativen)'
-                            ],
-                        ];
+						<?php
+						$question5 = [
+							[
+								'icon'  => 'home',
+								'title' => 'Alles-Oder-Nichts-Denken '
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Wahrscheinlichkeits-überschätzung'
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Emotionale Beweisführung'
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Katastrophisieren'
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Labelling'
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Sollte-Tyranneien'
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Gedankenlesen'
+							],
+							[
+								'icon'  => 'home',
+								'title' => 'Selektive Wahrnehmung (des Negativen)'
+							],
+						];
 
-                        foreach ($question5 as $question) {
-                            ?>
+						foreach ( $question5 as $question ) {
+							?>
                             <button class="checkbox-wrap">
                                 <div class="custom-checkbox">
                                     <input type="checkbox" class="checkbox"/>
@@ -335,21 +333,20 @@ get_header();
                                     </svg>
                                 </div>
                                 <span class="contenticon-wrap">
-									<!--
-                                    <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $question['icon']; ?>.svg" />
-                                    -->
+                                    <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $question['icon']; ?>.svg"
+                                         alt="icon"/>
 									<span class="content"><?= $question['title']; ?></span>
 								</span>
                             </button>
-                            <?php
-                        }
-                        ?>
+							<?php
+						}
+						?>
                     </div>
                     <div class="error-question error-question-5" style="display: none;">Option erforderlich.</div>
                     <div class="bottom-wrap question-5-section" style="display: none;">
                         <h5>Sonstige</h5>
                         <input type="text" class="question-5-input" placeholder="Trage hier deine eigenen Angaben ein"
-                               name="name">
+                               name="name"/>
                     </div>
                 </div>
             </div>
@@ -403,19 +400,22 @@ get_header();
             </div>
 
             <div class="button-submit-wrap" style="display: none;">
-		        <?php if ( $isCompleted ) { ?>
+				<?php if ( $isCompleted ) { ?>
                     <div class="symptoms-buttons">
                         <button type="button" class="symptoms-btn symptoms-btn--dark gilda completed">Erledigt</button>
                     </div>
-		        <?php } else { ?>
+				<?php } else { ?>
                     <div class="symptoms-buttons">
                         <a href="#" class="symptoms-btn symptoms-btn--light gilda symptoms-step-back">Zurück</a>
-                        <button type="button" class="symptoms-btn symptoms-btn--dark gilda" id="submit-tracker" style="cursor: pointer;">Senden</button>
-                        <button type="button" class="submit-activity" style="cursor: pointer; display:none">Senden</button>
+                        <button type="button" class="symptoms-btn symptoms-btn--dark gilda" id="submit-tracker"
+                                style="cursor: pointer;">Senden
+                        </button>
+                        <button type="button" class="submit-activity" style="cursor: pointer; display:none">Senden
+                        </button>
                     </div>
-		        <?php } ?>
+				<?php } ?>
             </div>
         </div>
-        <?php include(get_template_directory() . '/templates/feedback-modal.php'); ?>
+		<?php include( get_template_directory() . '/templates/feedback-modal.php' ); ?>
     </div>
 <?php get_footer(); ?>
