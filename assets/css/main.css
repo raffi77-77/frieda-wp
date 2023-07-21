@@ -2540,9 +2540,9 @@ span.coursetime-innercontent {
 }
 
 .quizcontent-wrap .maincontent-wrap .quiz-options button.active {
-    background: transparent !important;
+    background: #39495E !important;
     border: 1px solid #000000;
-    color: #000;
+    color: #ffffff;
 }
 
 .toolbox-section {
@@ -4790,21 +4790,21 @@ span.rangeslider__labels__label {
 .quizcontent-wrap .maincontent-wrap .quiz-options button.mark-red {
     border: 1px solid #000000;
     color: #000000;
-    background: #ffffff;
+    background: #ffffff !important;
     width: 100%;
 }
 
 .quizcontent-wrap .maincontent-wrap .quiz-options button.mark-green {
     border: 1px solid #ff0000;
     color: #ff0000;
-    background: transparent;
+    background: transparent !important;
     width: 100%;
 }
 
 .quizcontent-wrap .maincontent-wrap .quiz-options button.correct-answer {
     border: 1px solid #008000;
     color: #008000;
-    background: transparent;
+    background: transparent !important;
     width: 100%;
 }
 
