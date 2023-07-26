@@ -229,31 +229,42 @@ function customizeBillingFields($fields)
  */
 // add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
+/**
+ * If is test user
+ *
+ * @param numeric $user_id User id
+ *
+ * @return bool
+ */
+function is_test_user( $user_id ) {
+	return (int) get_user_meta( $user_id, '_frieda_is_test_user', true ) === 1;
+}
 
+add_action( 'template_redirect', 'logged_in_redirect' );
 /**
  * Redirect user to homepage if logged from register page
  */
-function logged_in_redirect()
-{
+function logged_in_redirect() {
 	$redirectTo = '';
-
-	if (is_user_logged_in()) {
-		setCourseToUserMeta(44);
-		$userPaymentComplete = get_user_meta(get_current_user_id(), 'user_payment_complete', true);
-		if ($userPaymentComplete && (is_page('register') || is_cart() || is_page('payment'))) {
-			$redirectTo = site_url();
-		} elseif (is_page('register')) {
-			$redirectTo = site_url();
-		} elseif (is_cart()) {
-			$redirectTo = site_url('payment?add-to-cart=117');
-		} elseif (!is_page('payment')) {
-			if (!$userPaymentComplete) {
-				$redirectTo = site_url('payment?add-to-cart=117');
+	if ( is_user_logged_in() ) {
+		if ( ! is_test_user( get_current_user_id() ) ) {
+			setCourseToUserMeta( 44 );
+			$userPaymentComplete = get_user_meta( get_current_user_id(), 'user_payment_complete', true );
+			if ( $userPaymentComplete && ( is_page( 'register' ) || is_cart() || is_page( 'payment' ) ) ) {
+				$redirectTo = site_url();
+			} elseif ( is_page( 'register' ) ) {
+				$redirectTo = site_url();
+			} elseif ( is_cart() ) {
+				$redirectTo = site_url( 'payment?add-to-cart=117' );
+			} elseif ( ! is_page( 'payment' ) ) {
+				if ( ! $userPaymentComplete ) {
+					$redirectTo = site_url( 'payment?add-to-cart=117' );
+				}
 			}
 		}
 	} else {
-		if (get_post_type() == 'frieda_course') {
-			$redirectTo = site_url('/login');
+		if ( get_post_type() === 'frieda_course' ) {
+			$redirectTo = site_url( '/login' );
 		}
 		// if (is_page('login') || is_page('register') || is_page('register-confirmation') || is_cart() || is_page('payment')) {
 		// } else {
@@ -262,12 +273,10 @@ function logged_in_redirect()
 		// 	// $redirectTo = site_url('/login');
 		// }
 	}
-	if ($redirectTo) {
-		wp_redirect($redirectTo);
+	if ( $redirectTo ) {
+		wp_redirect( $redirectTo );
 	}
 }
-add_action( 'template_redirect', 'logged_in_redirect' );
-
 
 /**
  * Default country set US in billing fields
@@ -851,6 +860,38 @@ function _onOtpSubmit()
 add_action('wp_ajax_nopriv__onOtpSubmit', '_onOtpSubmit');
 add_action('wp_ajax__onOtpSubmit', '_onOtpSubmit');
 
+/**
+ * On activity submit
+ *
+ * @param numeric $user_id User id
+ * @param numeric $id Post id
+ * @param array|null $quiz_answer Quiz answers info
+ * @param numeric $is_tracker_from Tracker form info
+ * @param array $response Response info
+ */
+function on_activity_submit( $user_id, $id, $quiz_answer, $is_tracker_from, &$response ) {
+	$metaId = get_user_meta( $user_id, 'userCourseMetaIds' . $id, true );
+	updateGroupUserMeta( $metaId, 'quizAnswer', json_encode( $quiz_answer ) );
+	$isAlreadySubmitted = updateGroupUserMeta( $metaId, 'completedDate' );
+	if ( $isAlreadySubmitted ) {
+		$response['status'] = false;
+		$response['msg']    = 'Activity Already Submitted.';
+	} else {
+		if ( $quiz_answer ) {
+			updateGroupUserMeta( $metaId, 'quizAnswer', json_encode( $quiz_answer ) );
+		}
+		if ( $is_tracker_from ) {
+			updateGroupUserMeta( $metaId, 'isTrackerFrom', $is_tracker_from );
+		}
+		updateGroupUserMeta( $metaId, 'completedDate', strtotime( "now" ) );
+		$response['status'] = true;
+		$response['metaId'] = $metaId;
+		$response['msg']    = 'Activity Submitted Successfully.';
+		updateCoruseCompletedDate( $id );
+		updateMetaForEmail( $id );
+		eachUnitMail( $id );
+	}
+}
 
 /**
  * On Activity Submit
@@ -865,28 +906,7 @@ function _onActivitySubmit()
 		$quizAnswer = $_POST['quizAnswer'];
 		$isTrackerFrom = $_POST['isTrackerFrom'];
 		if ($id) {
-			$metaId = get_user_meta(get_current_user_id(), 'userCourseMetaIds' . $id, true);
-			updateGroupUserMeta($metaId, 'quizAnswer', json_encode($quizAnswer));
-			$isAlreadySubmitted = updateGroupUserMeta($metaId, 'completedDate');
-			
-			if ($isAlreadySubmitted) {
-				$response['status'] = false;
-				$response['msg'] = 'Activity Already Submitted.';
-			} else {
-				if ($quizAnswer) {
-					updateGroupUserMeta($metaId, 'quizAnswer', json_encode($quizAnswer));
-				}
-				if ($isTrackerFrom) {
-					updateGroupUserMeta($metaId, 'isTrackerFrom', $isTrackerFrom);
-				}
-				updateGroupUserMeta($metaId, 'completedDate', strtotime("now"));
-				$response['status'] = true;
-				$response['metaId'] = $metaId;
-				$response['msg'] = 'Activity Submitted Succesfully.';
-				updateCoruseCompletedDate($id);
-				updateMetaForEmail($id);
-				eachUnitMail($id);
-			}
+			on_activity_submit( get_current_user_id(), $id, $quizAnswer, $isTrackerFrom, $response );
 		} else {
 			$response['msg'] = 'Etwas ist schief gelaufen. Bitte versuche es erneut.';
 		}
