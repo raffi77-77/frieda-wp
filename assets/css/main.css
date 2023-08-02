@@ -7626,6 +7626,7 @@ a.next-course-btn {
     color: #39495E;
     font-weight: 400;
     text-align: center;
+    width: 100%;
 }
 
 .quizcontent-wrap .maincontent-wrap .quiz-options button.mark-red {

@@ -286,35 +286,35 @@ get_header();
 						<?php
 						$question5 = [
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Alles-Oder-Nichts-Denken '
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Wahrscheinlichkeits-überschätzung'
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Emotionale Beweisführung'
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Katastrophisieren'
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Labelling'
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Sollte-Tyranneien'
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Gedankenlesen'
 							],
 							[
-								'icon'  => 'home',
+//								'icon'  => 'home',
 								'title' => 'Selektive Wahrnehmung (des Negativen)'
 							],
 						];
@@ -333,8 +333,10 @@ get_header();
                                     </svg>
                                 </div>
                                 <span class="contenticon-wrap">
-                                    <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $question['icon']; ?>.svg"
-                                         alt="icon"/>
+                                    <?php if ( ! empty( $question['icon'] ) ): ?>
+                                        <img src="<?= get_stylesheet_directory_uri(); ?>/assets/images/<?= $question['icon']; ?>.svg"
+                                             alt="icon"/>
+                                    <?php endif; ?>
 									<span class="content"><?= $question['title']; ?></span>
 								</span>
                             </button>

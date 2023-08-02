@@ -23,6 +23,16 @@
 
 	$goBackUrl = site_url(implode('/',$pageUrl).'?parent='.$post->post_parent);
 
+    // Get back url after submit
+$parent_post = $post;
+do {
+	$new_parent_post = get_post_parent( $parent_post );
+	if ( $new_parent_post instanceof WP_Post ) {
+		$parent_post = $new_parent_post;
+	}
+} while ( $parent_post->post_parent );
+$back_url = get_post_permalink( $parent_post );
+
 	$metaId = get_user_meta(get_current_user_id(),'userCourseMetaIds'.$post->ID,true);
 	$isCompleted = updateGroupUserMeta($metaId,'completedDate');
 
@@ -131,9 +141,11 @@
 					<textarea rows="10" name="comment" id="quiz-feedback-comment" cols="50"></textarea>
 					<div class="error-question-2" style="display: none;">Range required.</div>
 				</div>
-				<div class="button-wrapper">
-					<button type="submit" id="quiz-feedback-submit" meta-id="<?= $metaId;?>" style="cursor: pointer;">Abschicken</button>
-				</div>
+                <div class="button-wrapper">
+                    <button type="submit" id="quiz-feedback-submit" meta-id="<?= $metaId; ?>" style="cursor: pointer;"
+                            data-back-url="<?php echo $back_url; ?>">Abschicken
+                    </button>
+                </div>
 			</div>
 		</div>
 	</div>

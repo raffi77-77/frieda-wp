@@ -73,67 +73,58 @@ jQuery(document).ready(function () {
 
 	jQuery(document).on('click', ".submit-activity", function (e) {
 		e.preventDefault();
-		let id = jQuery('.toolscontent-wrap').attr('id')
-		let isQuiz = jQuery(this).attr('id')
-		let action = "_onActivitySubmit"
-		let quizAnswer = []
-
-		let error = false
+		const $this = jQuery(this);
+		let id = jQuery('.toolscontent-wrap').attr('id');
+		let isQuiz = $this.attr('id');
+		let action = "_onActivitySubmit";
+		let quizAnswer = [];
+		let error = false;
 		// quizcontent-wrap
 		jQuery('.quizcontent-wrap .maincontent-wrap').each(function (i, item) {
-			let type = ''
-			let answer = ''
+			let type = '';
+			let answer = '';
 			let title = jQuery(item).find('.quiz-headtitle').text();
-			title = encodeURIComponent(title)
-
+			title = encodeURIComponent(title);
 			if (jQuery(item).find('button').length) {
-				type = 'quiz'
+				type = 'quiz';
 				answer = jQuery(item).find('button.active').text();
 			} else if (jQuery(item).find('textarea').length) {
-				type = 'text'
+				type = 'text';
 				answer = jQuery(item).find('textarea').val();
 			}
-			answer = encodeURIComponent(answer)
-
+			answer = encodeURIComponent(answer);
 			if (!answer) {
-				error = true
-				jQuery('#show-res').text('All Question Required.')
-				jQuery('#show-res').addClass('error')
-				shoWHideDiv('#show-res', 10000)
-				return
+				error = true;
+				jQuery('#show-res').text('All Question Required.');
+				jQuery('#show-res').addClass('error');
+				shoWHideDiv('#show-res', 10000);
+			} else {
+				quizAnswer.push({answer, title, type});
 			}
-			quizAnswer.push({ answer, title, type });
 		});
 
-		let { isTrackerFrom } = window
-		if (!error) {;
-			let submitActivity = jQuery('.submit-activity')
+		let {isTrackerFrom} = window;
+		if (!error) {
+			let submitActivity = jQuery('.submit-activity');
 			jQuery.ajax({
-				type: "post",
-				url: ajaxurl,
-				data: {
-					id,
-					isQuiz,
-					action,
-					quizAnswer,
-					isTrackerFrom
-				},
-				success: function (res) {
-					const { status, msg } = res
+				type: "post", url: ajaxurl, data: {
+					id, isQuiz, action, quizAnswer, isTrackerFrom
+				}, success: function (res) {
+					const {status, msg} = res;
 					if (status) {
-						jQuery(`.sidebar-${id}`).addClass('active')
-						jQuery('#submit-tracker').remove()
-						jQuery('.next-course-btn').show()
+						jQuery(`.sidebar-${id}`).addClass('active');
+						jQuery('#submit-tracker').remove();
+						jQuery('.next-course-btn').show();
 						// submitActivity.addClass('completed')
 						// submitActivity.text('Erledigt')
-						submitActivity.hide()
+						submitActivity.hide();
 						jQuery('#feedback').css('width', '100%');
 					}
-				},
-				error: function (err) {
-					jQuery('#show-res').text('Etwas ist schief gelaufen. Bitte versuche es erneut.')
-					jQuery('#show-res').addClass('error')
-					shoWHideDiv('#show-res', 5000)
+				}, error: function (err) {
+					const $res = jQuery('#show-res');
+					$res.text('Etwas ist schief gelaufen. Bitte versuche es erneut.');
+					$res.addClass('error');
+					shoWHideDiv('#show-res', 5000);
 				}
 			});
 		}
@@ -265,48 +256,44 @@ jQuery(document).ready(function () {
 	})
 
 	jQuery(document).on('click', "#quiz-feedback-submit", function (e) {
-		e.preventDefault(); 
-		let metaId = jQuery(this).attr('meta-id')
-		let ranger = jQuery('#quiz-feedback-ranger').val()
-		let comment = jQuery('#quiz-feedback-comment').val()
-
+		e.preventDefault();
+		const $this = jQuery(this);
+		let metaId = $this.attr('meta-id');
+		let ranger = jQuery('#quiz-feedback-ranger').val();
+		let comment = jQuery('#quiz-feedback-comment').val();
 		if (!ranger) {
-			return showErrorMsg('error-question-1')
+			return showErrorMsg('error-question-1');
 		} else if (!comment) {
-			return showErrorMsg('error-question-2')
+			return showErrorMsg('error-question-2');
 		}
-
-
 		jQuery.ajax({
-			type: "post",
-			url: ajaxurl,
-			data: {
-				ranger,
-				metaId,
-				comment,
-				action: "onFeedbackSubmit",
-			},
-			success: function (res) {
-				console.log('res', res);
-				const { status } = res
+			type: "post", url: ajaxurl, data: {
+				ranger, metaId, comment, action: "onFeedbackSubmit",
+			}, success: function (res) {
+				// console.log('res', res);
+				const {status} = res;
 				if (status) {
-					jQuery('#evaluation-popup').addClass('completed')
-					jQuery('#evaluation-popup').removeClass('submit-activity')
-					jQuery('#evaluation-popup').removeAttr('id')
-					jQuery('#feedback').hide()
-					jQuery('#show-res').text('Dein Feedback wurde erfolgreich übermittelt.')
-					jQuery('#show-res').addClass('error')
-					shoWHideDiv('#show-res', 5000)
-
-					setTimeout(() => {
-						location.reload();
-					}, 2000);
+					const $evaluationPopup = jQuery('#evaluation-popup');
+					$evaluationPopup.addClass('completed');
+					$evaluationPopup.removeClass('submit-activity');
+					$evaluationPopup.removeAttr('id');
+					jQuery('#feedback').hide();
+					const $res = jQuery('#show-res');
+					$res.text('Dein Feedback wurde erfolgreich übermittelt.');
+					$res.addClass('error');
+					shoWHideDiv('#show-res', 5000);
+					const backUrl = $this.data('back-url');
+					if (backUrl) {
+						setTimeout(() => {
+							window.location.href = backUrl;
+						}, 2000);
+					}
 				}
-			},
-			error: function (err) {
-				jQuery('#show-res').text('Etwas ist schief gelaufen. Bitte versuche es erneut.')
-				jQuery('#show-res').addClass('error')
-				shoWHideDiv('#show-res', 5000)
+			}, error: function (err) {
+				const $res = jQuery('#show-res');
+				$res.text('Etwas ist schief gelaufen. Bitte versuche es erneut.');
+				$res.addClass('error');
+				shoWHideDiv('#show-res', 5000);
 			}
 		});
 	})
