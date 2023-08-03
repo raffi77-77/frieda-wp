@@ -23,7 +23,7 @@ $results = $wpdb->get_results("SELECT * FROM $tableName WHERE userid=$id ORDER B
 						<th>Begleiterscheinung</th>
 						<th>Intensität</th>
 						<th>Emotionen </th>
-						<th></th>
+						<th>Info</th>
 					</tr>
 					<?php
 						foreach ($results as $key => $result) {
@@ -44,8 +44,8 @@ $results = $wpdb->get_results("SELECT * FROM $tableName WHERE userid=$id ORDER B
 								<p><?= $data['question2']; ?></p>
 							</td>
 							<td>
-								<?php if($data['question3'] && count($data['question3'])){ ?>
-									<img class="emoji" src="<?= $data['question3'][0]['img']; ?>" />
+								<?php if ( $data['question3'] && count( $data['question3'] ) && ! empty( $data['question3'][0]['img'] ) ) { ?>
+                                    <img class="emoji" src="<?= $data['question3'][0]['img']; ?>" alt="emoji"/>
 								<?php } ?>
 							</td>
 							<td>
