@@ -34,7 +34,7 @@ function getCourseStatusClass( $user_id, $postID, $onlyCompletedDate = false ) {
 		$parent_id = (int) $postID;
 		do {
 			if ( $parent_id === 44 ) {
-				return 'active completed';
+				return 'active in-progress';
 			}
 		} while ( $parent_id = wp_get_post_parent_id( $parent_id ) );
 	}

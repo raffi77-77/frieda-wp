@@ -247,8 +247,8 @@ add_action( 'template_redirect', 'logged_in_redirect' );
 function logged_in_redirect() {
 	$redirectTo = '';
 	if ( is_user_logged_in() ) {
+        setCourseToUserMeta( 44 );
 		if ( ! is_test_user( get_current_user_id() ) ) {
-			setCourseToUserMeta( 44 );
 			$userPaymentComplete = get_user_meta( get_current_user_id(), 'user_payment_complete', true );
 			if ( $userPaymentComplete && ( is_page( 'register' ) || is_cart() || is_page( 'payment' ) ) ) {
 				$redirectTo = site_url();
@@ -554,6 +554,7 @@ add_action('edit_user_profile', 'extraUserProfileFields');
 function extraUserProfileFields($user)
 {
 	include(get_template_directory() . '/templates/admin-user-profile.php');
+	include(get_template_directory() . '/templates/admin-user-profile-custom-fields.php');
 }
 
 
@@ -1417,8 +1418,7 @@ function sendReminderMailToEachUser() {
 	foreach ($userIds as $key => $user) {
 		$id = $user->id;
 		$email = $user->email;
-		$userPaymentComplete = get_user_meta($id, 'user_payment_complete', true);
-		if ($userPaymentComplete) {
+		if (get_user_meta($id, 'user_payment_complete', true) || is_test_user($id)) {
 
 			
 			$lastCouserId = get_user_meta($id, 'lastCouserId', true);
@@ -1494,5 +1494,57 @@ function eachUnitMail($couserId) {
 				}
 			}
 		}
+	}
+}
+
+add_action( 'user_new_form', 'frieda_user_new_form' );
+/**
+ * Action on user form submit
+ *
+ * @param string $type User form type
+ */
+function frieda_user_new_form( $type ) {
+	if ( $type === 'add-new-user' ) {
+		?>
+        <h2>Custom Fields</h2>
+        <p>User registration custom fields.</p>
+        <table class="form-table" role="presentation">
+            <tr>
+                <th scope="row">Is test user</th>
+                <td>
+                    <input type="checkbox" name="_frieda_is_test_user" id="is-test-user" value="1">
+                    <label for="is-test-user">Check this box to add the user as a test user.</label>
+                </td>
+            </tr>
+        </table>
+		<?php
+	}
+}
+
+add_action( 'user_register', 'frieda_registration_save' );
+/**
+ * Action on user register
+ *
+ * @param int $user_id User ID
+ */
+function frieda_registration_save( $user_id ) {
+	if ( isset( $_POST['_frieda_is_test_user'] ) ) {
+		update_user_meta($user_id, '_frieda_is_test_user', $_POST['_frieda_is_test_user']);
+    }
+}
+
+add_action( 'profile_update', 'frieda_profile_update', 10, 3 );
+/**
+ * Action on user data update
+ *
+ * @param int $user_id User ID
+ * @param WP_User $old_user_data Object containing user's data prior to update
+ * @param array $userdata The raw array of data passed to wp_insert_user()
+ */
+function frieda_profile_update( $user_id, $old_user_data, $userdata ) {
+	if ( isset( $_POST['_frieda_is_test_user'] ) ) {
+		update_user_meta( $user_id, '_frieda_is_test_user', $_POST['_frieda_is_test_user'] );
+	} else {
+		delete_user_meta( $user_id, '_frieda_is_test_user' );
 	}
 }

@@ -6,14 +6,17 @@
 	<tr>
 		<th><label for="address"><?php _e("Course Payment"); ?></label></th>
 		<td>
-			<?php if($userPaymentComplete) { ?>
-				<div>
-					<strong>Completed</strong>
-					<a href="<?= site_url('wp-admin/post.php?post='.$userPaymentComplete.'&action=edit'); ?>"> Payment Details </a>
-				</div>
-			<?php } else {?>
-				<div>Pending</div>
-			<?php }?>
+			<?php if ( $userPaymentComplete ) { ?>
+                <div>
+                    <strong>Completed</strong>
+                    <a href="<?= site_url( 'wp-admin/post.php?post=' . $userPaymentComplete . '&action=edit' ); ?>">
+                        Payment Details </a>
+                </div>
+			<?php } else if ( is_test_user( $user->ID ) ) { ?>
+                <div>Test user</div>
+			<?php } else { ?>
+                <div>Pending</div>
+			<?php } ?>
 		</td>
 	</tr>
 </table>
