@@ -30,14 +30,6 @@ function getCourseStatusClass( $user_id, $postID, $onlyCompletedDate = false ) {
 	} elseif ( $startDate ) {
 		return 'active in-progress';
 	}
-	if ( is_test_user( $user_id ) ) {
-		$parent_id = (int) $postID;
-		do {
-			if ( $parent_id === 44 ) {
-				return 'active in-progress';
-			}
-		} while ( $parent_id = wp_get_post_parent_id( $parent_id ) );
-	}
 
 	return 'locked';
 }
