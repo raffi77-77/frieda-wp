@@ -503,7 +503,13 @@ function wpSendCustom($email, $type, $data = [])
 			$subject = "Unit Completed Successfully - Frieda";
 			$optionSlug = $data['unitId'];
 			include('email-template/reminder-body.php');
-		} elseif ($type == 'reminderEmail') {
+		} elseif ( $type == 'paymentSuccess' ) {
+			$subject = "Zahlung erfolgreich";
+			include( 'email-template/paymentSuccess.php' );
+		} elseif ( $type == 'changeEmail' ) {
+			$subject = "Email Änderung";
+			include( 'email-template/changeEmail.php' );
+		} elseif ( $type == 'reminderEmail' ) {
 			// $data = [
 			// 	'userId' => 127,
 			// 	'reminder' => 3,
@@ -746,6 +752,7 @@ function onEmailVerify()
 	if (isset($_POST['action'])) {
 		unset($_POST['action']);
 		$email = $_POST['email'];
+		$updateAction = $_POST['update'];
 		if ($email) {
 			$email = sanitize_text_field(wp_unslash($email));
 			if (email_exists($email)) {
@@ -758,8 +765,8 @@ function onEmailVerify()
 
 				$response['status'] = true;
 				$response['msg'] = 'Verifizierungscode wurde erfolgreich gesendet.';
-
-				wpSendCustom($email, 'verifyEmail', [
+				$emailType = ( $updateAction == 'true' ) ? 'changeEmail' : 'verifyEmail';
+				wpSendCustom($email, $emailType, [
 					'otp' => $otp
 				]);
 			}
@@ -1548,3 +1555,15 @@ function frieda_profile_update( $user_id, $old_user_data, $userdata ) {
 		delete_user_meta( $user_id, '_frieda_is_test_user' );
 	}
 }
+
+function sendPaymentSuccessEmail($order_id) {
+	$order = wc_get_order($order_id);
+
+	if ($order->get_status() === 'completed') {
+		$currentUser = wp_get_current_user();
+        wpSendCustom($currentUser->user_email, 'paymentSuccess', [
+            'userId' => get_current_user_id(),
+        ]);
+	}
+}
+add_action('woocommerce_payment_complete', 'sendPaymentSuccessEmail');

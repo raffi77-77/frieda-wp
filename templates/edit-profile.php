@@ -94,7 +94,7 @@ $isUserImgExists = get_user_meta(get_current_user_id(),'_pUserImage',true);
 									<div class="fields">
 										<div class="verify-email-wrap">
 											<label for="fname">Neue E-Mail-Adresse eingeben</label>
-											<label class="verify-email" style="cursor: pointer;padding: 0px 10px;">Bestätigungscode senden</label>
+											<label class="verify-email change-email" style="cursor: pointer;padding: 0px 10px;">Bestätigungscode senden</label>
 										</div>
 										<input type="email" name="email" id="email" updateEmail="true" onkeypress="return event.keyCode != 13;" value="" required>
 										<p class="verify-email-desc">Bitte bestätigen Sie Ihre E-Mail-Adresse, um fortzufahren</p>

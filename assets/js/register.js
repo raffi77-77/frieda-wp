@@ -124,6 +124,7 @@ jQuery(document).ready(function () {
 
 	jQuery(document).on('click', ".verify-email", function (e) {
 		e.preventDefault();
+        let update = $(this).hasClass('change-email');
 		let email = jQuery('#email').val();
 		if (!email) {
 			return shoWHideDiv('#email-error');
@@ -134,7 +135,8 @@ jQuery(document).ready(function () {
 				type: "post",
 				url: ajaxurl,
 				data: {
-					email,
+                    email: email,
+                    update: update,
 					action: "onEmailVerify"
 				},
 				success: function (res) {
@@ -255,7 +257,7 @@ jQuery(document).ready(function () {
 							data: {
 								action: "_onOtpSubmit",
 								email: jQuery('#email').val(),
-								updateEmail: jQuery('#email').attr('update'),
+								updateEmail: jQuery('#email').attr('updateemail'),
 								otp: otp.join('')
 							},
 							success: function (res) {
