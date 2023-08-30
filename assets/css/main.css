@@ -8057,4 +8057,9 @@ a.next-course-btn {
     .symptoms-buttons {
         margin: 30px 0 70px 0;
     }
+
+    .welcome-media--tracker img {
+        width: 100% !important;
+        height: 100% !important;
+    }
 }

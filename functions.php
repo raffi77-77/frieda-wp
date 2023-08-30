@@ -237,7 +237,7 @@ function customizeBillingFields($fields)
  * @return bool
  */
 function is_test_user( $user_id ) {
-	return (int) get_user_meta( $user_id, '_frieda_is_test_user', true ) === 1;
+	return get_user_meta( $user_id, '_frieda_is_test_user', true ) === 'yes';
 }
 
 add_action( 'template_redirect', 'logged_in_redirect' );
@@ -261,6 +261,8 @@ function logged_in_redirect() {
 					$redirectTo = site_url( 'payment?add-to-cart=117' );
 				}
 			}
+		} else if ( is_test_user( get_current_user_id() ) && isset( $_GET['add-to-cart'] ) ) {
+			$redirectTo = site_url();
 		}
 	} else {
 		if ( get_post_type() === 'frieda_course' ) {
@@ -1519,8 +1521,10 @@ function frieda_user_new_form( $type ) {
             <tr>
                 <th scope="row">Is test user</th>
                 <td>
-                    <input type="checkbox" name="_frieda_is_test_user" id="is-test-user" value="1">
-                    <label for="is-test-user">Check this box to add the user as a test user.</label>
+                    <input id="test_user" type="radio" name="_frieda_is_test_user" value="yes">
+                    <label for="test_user">Yes </label>
+                    <input id="not_test_user" type="radio" name="_frieda_is_test_user" value="no">
+                    <label for="not_test_user">No </label>
                 </td>
             </tr>
         </table>
@@ -1551,8 +1555,6 @@ add_action( 'profile_update', 'frieda_profile_update', 10, 3 );
 function frieda_profile_update( $user_id, $old_user_data, $userdata ) {
 	if ( isset( $_POST['_frieda_is_test_user'] ) ) {
 		update_user_meta( $user_id, '_frieda_is_test_user', $_POST['_frieda_is_test_user'] );
-	} else {
-		delete_user_meta( $user_id, '_frieda_is_test_user' );
 	}
 }
 
