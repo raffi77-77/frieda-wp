@@ -7883,6 +7883,38 @@ a.next-course-btn {
     background-color: transparent;
     height: 2px;
 }
+.homepage-list-wrap .owl-dots{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.homepage-list-wrap .owl-dot{
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 6px;
+    margin: 0 8px;
+    pointer-events: auto;
+    position: relative;
+    width: 6px;
+    background: rgb(232,232,232) !important;
+    border-radius: 50%;
+}
+
+.homepage-list-wrap .owl-dots .active{
+    border: 2px solid rgb(232,232,232) !important;;
+    box-sizing: border-box;
+    background: white !important;
+    cursor: pointer;
+    display: block;
+    height: 9px;
+    margin: 0 8px;
+    pointer-events: auto;
+    position: relative;
+    width: 9px;
+    /*background: rgb(232,232,232) !important;*/
+    border-radius: 50%;
+}
 
 .symptoms-wrap .range-wrap .rangeslider .rangeslider__handle {
     border: none;

@@ -154,3 +154,16 @@ jQuery('#about-page-sildes').owlCarousel({
         }
     }
 });
+
+jQuery('#homepage-slides').owlCarousel({
+    autoplay: true,
+    loop: false,
+    infinite: true,
+    nav: false,
+    dots: 3,
+    margin: 20,
+    items: 1,
+    autoplayTimeout: 2000,
+    autoplayHoverPause: true,
+
+})
